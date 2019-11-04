@@ -8,20 +8,23 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h4>Your Gold:</h4>
-    <div class="goldtotal"><p>{{session['totalgold']}}</p></div>
+    <h2>Your Gold: {{session['totalgold']}}</h2>
+    <!-- <div class="goldtotal"><p></p></div> -->
     <div class="location">
         <h3>Farm</h3>
         <p>(earns 10-20 golds)</p>
-        <form action="/process" method="POST">
-        <button type="submit">Find Gold!</button>
-        </form>
+        <form name="location" action="/process" method="POST">
 
+            <button type="submit" form="location">Find Gold!</button>
+        </form>
     </div>
     <div class="location">
         <h3>Cave</h3>
         <p>(earns 5-10 golds)</p>
-        <button type="submit">Find Gold!</button>
+        <form name="location" action="/process" method="POST">
+            <input type="hidden" name="cave" value="Cave">
+            <button type="submit" form="location">Find Gold!</button>
+        </form>
     </div>
     <div class="location">
         <h3>House</h3>
@@ -29,9 +32,15 @@
         <button type="submit">Find Gold!</button>
     </div>
     <div class="location">
-        <h3>Cave</h3>
+        <h3>Casino</h3>
         <p>(earns/takes 0-50 golds)</p>
         <button type="submit">Find Gold!</button>
+    </div>
+    <div class="activities">
+        <p>activity 1</p>
+        <p>activity 2</p>
+        <p>activity 3</p>
+
     </div>
 </body>
 </html>
