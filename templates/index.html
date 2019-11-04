@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ninja Money</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h4>Your Gold:</h4>
+    <div class="goldtotal"><p>{{session['totalgold']}}</p></div>
+    <div class="location">
+        <h3>Farm</h3>
+        <p>(earns 10-20 golds)</p>
+        <form action="/process" method="POST">
+        <button type="submit">Find Gold!</button>
+        </form>
+
+    </div>
+    <div class="location">
+        <h3>Cave</h3>
+        <p>(earns 5-10 golds)</p>
+        <button type="submit">Find Gold!</button>
+    </div>
+    <div class="location">
+        <h3>House</h3>
+        <p>(earns 2-5 golds)</p>
+        <button type="submit">Find Gold!</button>
+    </div>
+    <div class="location">
+        <h3>Cave</h3>
+        <p>(earns/takes 0-50 golds)</p>
+        <button type="submit">Find Gold!</button>
+    </div>
+</body>
+</html>
