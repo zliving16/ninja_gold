@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, url_for, session, render_template
 import random
+import collections
 
 #  Create a new Flask project called ninja_gold
 app = Flask(__name__)
@@ -15,7 +16,11 @@ def main():
         session['totalgold'] = 0
     if 'activity' not in session:
         session['activity'] = []
-    return render_template('index.html', totalgold=session['totalgold'], activity=session['activity'])
+    
+    if 'lengthlist' not in session:
+        session['lengthlist']=len(session['activity'])-1   
+
+    return render_template('index.html', totalgold=session['totalgold'],i=session['activity'], activity=session['activity'], lenlist=session['lengthlist'])
 
 #  Have the "/process_money" POST route increase/decrease the user's gold by an appropriate amount and redirect to the root route
 @app.route('/process', methods=['POST'])
@@ -42,6 +47,9 @@ def process_money():
         color = 'red'
         golddelta *= -1
     session['activity'].append(f"<li style='color:{color};'>{word} {golddelta} gold from {place}</li>")
+    if 'lengthlist' not in session:
+        session['lengthlist']=len(session['activity'])-1 
+    session['lengthlist']=len(session['activity'])-1   
     return redirect('/')
 
 @app.route('/clear', methods=['POST'])

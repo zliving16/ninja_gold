@@ -45,8 +45,8 @@
     <div class="activities">
         
         <ul>
-            {% for i in activity%}
-                {{ i|safe }}
+            {% for y in range(lenlist,-1,-1):%}
+                {{ activity[y] | safe}}
             {% endfor %}
         </ul>
     </div>
