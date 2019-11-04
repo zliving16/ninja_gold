@@ -9,29 +9,46 @@
 </head>
 <body>
     <h4>Your Gold:</h4>
-    <div class="goldtotal"><p>{{session['totalgold']}}</p></div>
+    <div class="goldtotal"><p>{{totalgold}}</p></div>
     <div class="location">
         <h3>Farm</h3>
         <p>(earns 10-20 golds)</p>
-        <form action="/process" method="POST">
-        <button type="submit">Find Gold!</button>
+        <form action="/process_money" method="post">
+            <input type="hidden" name="farm" value="farm" />
+            <button type="submit">Find Gold!</button>
         </form>
 
     </div>
     <div class="location">
         <h3>Cave</h3>
         <p>(earns 5-10 golds)</p>
-        <button type="submit">Find Gold!</button>
+        <form action="/process_money" method="post">
+            <input type="hidden" name="cave" value="Cave" />
+            <button type="submit">Find Gold!</button>
+        </form>
     </div>
     <div class="location">
         <h3>House</h3>
         <p>(earns 2-5 golds)</p>
-        <button type="submit">Find Gold!</button>
+        <form action="/process_money" method="post">
+            <input type="hidden" name="house" value="House" />
+            <button type="submit">Find Gold!</button>
+        </form>
     </div>
     <div class="location">
-        <h3>Cave</h3>
+        <h3>Casino</h3>
         <p>(earns/takes 0-50 golds)</p>
-        <button type="submit">Find Gold!</button>
+        <form action="/process_money" method="post">
+            <input type="hidden" name="Casino" value="Casino" />
+            <button type="submit">Find Gold!</button>
+        </form>
+    </div>
+    <div class="activities">
+        <p>Activities:</p>
+        <ol>
+            <li></li>
+        </ol>
+
     </div>
 </body>
 </html>
