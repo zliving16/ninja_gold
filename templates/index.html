@@ -8,13 +8,12 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h4>Your Gold:</h4>
-    <div class="goldtotal"><p>{{totalgold}}</p></div>
+    <h4>Your Gold: {{totalgold}}</h4>
     <div class="location">
         <h3>Farm</h3>
         <p>(earns 10-20 golds)</p>
         <form action="/process" method="post">
-            <input type="hidden" name="farm" value="farm" />
+            <input type="hidden" name="place" value="farm" />
             <button type="submit">Find Gold!</button>
         </form>
     </div>
@@ -22,7 +21,7 @@
         <h3>Cave</h3>
         <p>(earns 5-10 golds)</p>
         <form action="/process" method="post">
-            <input type="hidden" name="cave" value="Cave" />
+            <input type="hidden" name="place" value="Cave" />
             <button type="submit">Find Gold!</button>
         </form>
     </div>
@@ -30,7 +29,7 @@
         <h3>House</h3>
         <p>(earns 2-5 golds)</p>
         <form action="/process" method="post">
-            <input type="hidden" name="house" value="House" />
+            <input type="hidden" name="place" value="House" />
             <button type="submit">Find Gold!</button>
         </form>
     </div>
@@ -38,7 +37,7 @@
         <h3>Casino</h3>
         <p>(earns/takes 0-50 golds)</p>
         <form action="/process" method="post">
-            <input type="hidden" name="Casino" value="Casino" />
+            <input type="hidden" name="place" value="Casino" />
             <button type="submit">Find Gold!</button>
         </form>
     </div>
@@ -50,10 +49,12 @@
 
     </div>
     <div class="activities">
-        <p>activity 1</p>
-        <p>activity 2</p>
-        <p>activity 3</p>
-
+        <h3>Activity</h3>
+        <ul>
+            {% for i in activity%}
+                {{ i|safe }}
+            {% endfor %}
+        </ul>
     </div>
 </body>
 </html>

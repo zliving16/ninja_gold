@@ -14,24 +14,35 @@ app.secret_key = key
 def main():
     if 'totalgold' not in session:
         session['totalgold'] = 0
-    return render_template('index.html', totalgold=session['totalgold'])
+    if 'activity' not in session:
+        session['activity'] = []
+    return render_template('index.html', totalgold=session['totalgold'], activity=session['activity'])
 
 #  Have the "/process_money" POST route increase/decrease the user's gold by an appropriate amount and redirect to the root route
 @app.route('/process', methods=['POST'])
 def process_money():
     # logic for adding/subtracting gold
-    if request.form['cave']=='Cave':
-        golddelta=randint(5,10)
-        session['totalgold'] += golddelta
-    if request.form['farm']=='farm':
+    place = request.form['place']
+    if place == 'farm':
         golddelta=randint(10,20)
-        session['totalgold'] += golddelta
-    if request.form['house']=='House':
+    elif place == 'Cave':
+        golddelta=randint(5,10)
+    elif place == 'House':
         golddelta=randint(2,5)
-        session['totalgold'] += golddelta
-    if request.form['Casino']=='Casino':
-        golddelta=randint(-50,50)
-        session['totalgold'] += golddelta
+    elif place == 'Casino':
+        if session['totalgold'] > 0:
+            golddelta=randint(-50,50)
+        else: golddelta=0
+    session['totalgold'] += golddelta
+    # session['place'] = place
+    if golddelta>0:
+        word = 'Got'
+        color = 'green'
+    else:
+        word = 'Lost'
+        color = 'red'
+        golddelta *= -1
+    session['activity'].append(f"<li style='color:{color};'>{word} {golddelta} gold from {place}</li>")
     return redirect('/')
 
 #  NINJA BONUS: Display all the activities performed by the user in a log on the HTML, as shown in the wireframe
