@@ -14,14 +14,23 @@ app.secret_key = key
 def main():
     if 'totalgold' not in session:
         session['totalgold'] = 0
-    return render_template('index.html', gold=session['totalgold'])
+    return render_template('index.html', totalgold=session['totalgold'])
 
 #  Have the "/process_money" POST route increase/decrease the user's gold by an appropriate amount and redirect to the root route
-@app.route('/process')
+@app.route('/process', methods=['POST'])
 def process_money():
     # logic for adding/subtracting gold
     if request.form['cave']=='Cave':
         golddelta=randint(5,10)
+        session['totalgold'] += golddelta
+    if request.form['farm']=='farm':
+        golddelta=randint(10,20)
+        session['totalgold'] += golddelta
+    if request.form['house']=='House':
+        golddelta=randint(2,5)
+        session['totalgold'] += golddelta
+    if request.form['Casino']=='Casino':
+        golddelta=randint(-50,50)
         session['totalgold'] += golddelta
     return redirect('/')
 
