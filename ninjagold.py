@@ -1,10 +1,9 @@
 from flask import Flask, request, redirect, url_for, session, render_template
-from os import urandom
-from random import randint
+import random
 
 #  Create a new Flask project called ninja_gold
 app = Flask(__name__)
-key = urandom(16)
+key = "admin"
 app.secret_key = key
 
 
@@ -14,17 +13,41 @@ app.secret_key = key
 def main():
     if 'totalgold' not in session:
         session['totalgold'] = 0
-    return render_template('index.html', gold=session['totalgold'])
+    if 'activity' not in session:
+        session['activity'] = []
+    return render_template('index.html', totalgold=session['totalgold'], activity=session['activity'])
 
 #  Have the "/process_money" POST route increase/decrease the user's gold by an appropriate amount and redirect to the root route
-@app.route('/process')
+@app.route('/process', methods=['POST'])
 def process_money():
     # logic for adding/subtracting gold
-    if request.form['cave']=='Cave':
-        golddelta=randint(5,10)
-        session['totalgold'] += golddelta
+    place = request.form['place']
+    if place == 'farm':
+        golddelta=random.randint(10,20)
+    elif place == 'Cave':
+        golddelta=random.randint(5,10)
+    elif place == 'House':
+        golddelta=random.randint(2,5)
+    elif place == 'Casino':
+        if session['totalgold'] > 0:
+            golddelta=random.randint(-50,50)
+        else: golddelta=0
+    session['totalgold'] += golddelta
+    # session['place'] = place
+    if golddelta>0:
+        word = 'Got'
+        color = 'green'
+    else:
+        word = 'Lost'
+        color = 'red'
+        golddelta *= -1
+    session['activity'].append(f"<li style='color:{color};'>{word} {golddelta} gold from {place}</li>")
     return redirect('/')
 
+@app.route('/clear', methods=['POST'])
+def clear():
+    session.clear()
+    return redirect('/')
 #  NINJA BONUS: Display all the activities performed by the user in a log on the HTML, as shown in the wireframe
 #  NINJA BONUS: Have the activities be color-coded as shown above (+ money is green, - money is red)
 #  NINJA BONUS: Add a reset button to restart the game

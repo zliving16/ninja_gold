@@ -2,3 +2,30 @@ body *{
     margin: 0px;
     padding: 0px;
 }
+body{
+    width: 970px;
+    height: 800px;
+    /* border: 1px solid black; */
+}
+.location{
+    width: 19%;
+    height: 9%;
+    border: 1px solid black;
+    display: inline-block;
+    text-align: center;
+}
+.activities{
+    height: 20%;
+    width: 20%;
+    border: 1px solid black;
+    margin-top: 10px;
+    overflow: auto;
+}
+/* ul, li{
+    list-style-position: inside;
+} */
+
+.clear{
+    display: inline-block;
+    margin-left: 40%;
+}
